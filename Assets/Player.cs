@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     public LayerMask GroundLayer;
     //jump window
     private bool Jumping;
-    private float ButtonTime = 0.3f;
+    private float ButtonTime = 0.2f;
     private float JumpTime;
     // Forgiving the player
     private float CoyoteCounter;
