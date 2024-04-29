@@ -17,12 +17,14 @@ public class Player : MonoBehaviour
     public LayerMask GroundLayer;
     //jump window
     private bool Jumping;
-    private float ButtonTime = 0.2f;
+    private float ButtonTime = 0.23f;
     private float JumpTime;
     // Forgiving the player
     private float CoyoteCounter;
     private float JumpBufferCounter;
-
+    // DoubleJump
+    public float DoubleJump = 0;
+    public float DoubleJumpForce;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +43,7 @@ public class Player : MonoBehaviour
 
         if (GroundCheck)
         {
-            CoyoteCounter = 0.2f;
+            CoyoteCounter = 0.1f;
         }
         else
         {
@@ -50,7 +52,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            JumpBufferCounter = 0.2f;
+            JumpBufferCounter = 0.1f;
         }
         else
         {
@@ -70,10 +72,20 @@ public class Player : MonoBehaviour
             JumpTime += Time.deltaTime;
         }
 
-        if (Input.GetKeyUp(KeyCode.Space) | JumpTime > ButtonTime)
+        if (Input.GetKeyUp(KeyCode.Space) | JumpTime > ButtonTime) 
         {
             Jumping = false;
             CoyoteCounter = 0;
+        }
+
+        if (GroundCheck && Input.GetKeyDown(KeyCode.Space))
+        {
+            DoubleJump = 1;
+        }
+        if (!GroundCheck && Input.GetKeyDown(KeyCode.Space) && DoubleJump > 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, DoubleJumpForce);
+            DoubleJump = 0;
         }
     }
 
