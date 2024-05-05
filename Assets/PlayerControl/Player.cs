@@ -41,6 +41,9 @@ public class Player : MonoBehaviour
     private Vector2 WallJumpingPower = new Vector2(80f, 180f);
     // Flip
     private bool isFacingRight = true;
+    // dash
+    public float dashpower = 4;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +56,6 @@ public class Player : MonoBehaviour
         Horizontal = Input.GetAxisRaw("Horizontal");
 
         GroundCheck = Physics2D.Raycast(transform.position, Vector2.down, GroundLine, GroundLayer);
-
 
         // Jumping
 
