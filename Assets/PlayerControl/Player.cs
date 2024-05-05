@@ -43,11 +43,26 @@ public class Player : MonoBehaviour
     private bool isFacingRight = true;
     // dash
     public float dashpower = 4;
+    public float dashspeed = 1;
+    public float dashtimer = 2;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+    }
+
+    private IEnumerator dash()
+    {
+        if (isFacingRight)
+        {
+            rb.velocity = Vector2.right * dashpower;
+        }
+        if (isFacingRight == false)
+        {
+            rb.velocity = Vector2.left * dashpower;
+        }
+        yield return new WaitForSeconds(dashtimer);
     }
 
     // Update is called once per frame
@@ -56,6 +71,17 @@ public class Player : MonoBehaviour
         Horizontal = Input.GetAxisRaw("Horizontal");
 
         GroundCheck = Physics2D.Raycast(transform.position, Vector2.down, GroundLine, GroundLayer);
+
+        // dash
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            StartCoroutine(dash());
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            rb.AddForce(transform.right * dashpower, ForceMode2D.Impulse);
+        }
 
         // Jumping
 
