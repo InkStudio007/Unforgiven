@@ -6,7 +6,7 @@ using Cinemachine;
 public class fallingSystem : MonoBehaviour
 {
     public CinemachineCameraOffset offset;
-    public Player rb;
+    public Rigidbody2D rb;
     public Player player;
 
     public float Yoffsetspeed;
@@ -23,11 +23,15 @@ public class fallingSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.rb.velocityY > 0f)
+        if (player.rb.velocityY > 0f) 
         {
             Yoffset = Mathf.Lerp(Yoffset, YoffsetNotfalling, Yoffsetspeed * Time.deltaTime);
         }
-        if(player.rb.velocityY < 0f)
+        if (player.rb.velocityY == 0f)
+        {
+            Yoffset = Mathf.Lerp(Yoffset, YoffsetNotfalling, Yoffsetspeed * Time.deltaTime);
+        }
+        if (player.rb.velocityY < 0f)
         {
             Yoffset = Mathf.Lerp(Yoffset, Yoffsetahead, Yoffsetspeed * Time.deltaTime);
         }
