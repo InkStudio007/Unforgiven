@@ -1,42 +1,32 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class switching : MonoBehaviour
 {
-    [SerializeField]
-    private InputAction action;
-    private Animator animator;
     private bool main = true;
+    public GameObject Main;
+    public GameObject Static;
 
-    private void Awake()
+    private void Start()
     {
-        animator = GetComponent<Animator>();
-    }
-    private void OnEnable()
-    {
-        action.Enable();
-    }
-    private void OnDisable()
-    {
-        action.Disable();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        action.performed += _ => switchstate();
-
+        //Main = GameObject.FindGameObjectWithTag("main").GetComponent<CinemachineVirtualCamera>();
+        //Static = GameObject.FindGameObjectWithTag("static").GetComponent<CinemachineVirtualCamera>();
     }
 
-    private void switchstate()
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (main)
         {
-            animator.Play("static");
+            Main.gameObject.SetActive(false);
+            Static.gameObject.SetActive(true);
+            main = false;
         }
         else
         {
-            animator.Play("main");
+            Static.gameObject.SetActive(false);
+            Main.gameObject.SetActive(true);
+            main = true;
         }
-        main = !main;
     }
 }
