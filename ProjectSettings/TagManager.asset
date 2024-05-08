@@ -6,6 +6,8 @@ TagManager:
   tags:
   - GroundCheck
   - Spawner
+  - main
+  - static
   layers:
   - Default
   - TransparentFX

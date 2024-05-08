@@ -220,10 +220,16 @@ public class Player : MonoBehaviour
 
             if (transform.localScale.x != WallJumpingDirection)
             {
-                isFacingRight = !isFacingRight;
-                Vector3 localScale = transform.localScale;
-                localScale.x *= -1f;
-                transform.localScale = localScale;
+                if (Horizontal < 0f)
+                {
+                    isFacingRight = !isFacingRight;
+                    transform.rotation = Quaternion.Euler(0, -180, 0);
+                }
+                if (Horizontal > 0f)
+                {
+                    isFacingRight = !isFacingRight;
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+                }
             }
 
             Invoke(nameof(StopWallJump), WallJumpingDuration);
@@ -238,12 +244,15 @@ public class Player : MonoBehaviour
 
     private void Flipe()
     {
-        if (isFacingRight && Horizontal < 0f || !isFacingRight && Horizontal > 0f)
+        if (Horizontal < 0f)
         {
             isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
+            transform.rotation = Quaternion.Euler(0, -180, 0);
+        }
+        if (Horizontal > 0f)
+        {
+            isFacingRight = !isFacingRight;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 }
