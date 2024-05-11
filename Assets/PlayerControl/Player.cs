@@ -6,64 +6,64 @@ public class Player : MonoBehaviour
 {
     public GameObject player;
     public Rigidbody2D rb;
-    // Movement
+
+    [Header("Movment")]
     private float Horizontal;
     public float movespeed = 5;
     public float JumpForce;
     public float GravityScale = 10;
     public float FallingGravityScale = 40;
-    //GroundCheck
+
     [Header("GroundCheck")]
     public bool GroundCheck = false;
     public float GroundLine = 1.5f;
     public LayerMask GroundLayer;
-    //jump window
+
+    [Header("jump Window")]
     private bool Jumping;
     public float ButtonTime = 0.23f;
-    private float JumpTime;  
-    // Forgiving the player
+    private float JumpTime;
+
+    [Header("Fogiving The Player")]
     private float CoyoteCounter;
     private float JumpBufferCounter;
-    // DoubleJump
+
+    [Header("DoubleJump")]
     public float DoubleJumpCount = 0;
     public float DoubleJumpForce;
-    //Wall Sliding
+
+    [Header("Wall Sliding")]
     public bool isWallSliding;
     public float WallSlidingSpeed = 2f;
     public Transform WallCheck;
     public LayerMask WallLayer;
-    // Wall Jumping
+
+    [Header("Wall Jumping")]
     public bool isWallJumping;
     private float WallJumpingDirection;
     private float WallJumpingTime = 0.2f;
     private float WallJumpingCounter;
-    private float WallJumpingDuration =0.2f;
+    private float WallJumpingDuration = 0.2f;
     private Vector2 WallJumpingPower = new Vector2(80f, 180f);
-    // Flip
-    private bool isFacingRight = true;
-    // dash
-    public float dashpower = 4;
-    public float dashspeed = 1;
-    public float dashtimer = 2;
 
+    [Header("Flip")]
+    private bool isFacingRight = true;
+
+    [Header("Dash")]
+    public float DashPower = 2500;
+    public float DashCoolDown = 0.4f;
+    private float DashDir;
+    private bool dashing;
+    private bool CanDash = true;
+    public float dashTime = 0.2f;
+    public TrailRenderer Tr;
+    
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
-    private IEnumerator dash()
-    {
-        if (isFacingRight)
-        {
-            rb.velocity = Vector2.right * dashpower;
-        }
-        if (isFacingRight == false)
-        {
-            rb.velocity = Vector2.left * dashpower;
-        }
-        yield return new WaitForSeconds(dashtimer);
-    }
 
     // Update is called once per frame
     void Update()
@@ -71,17 +71,6 @@ public class Player : MonoBehaviour
         Horizontal = Input.GetAxisRaw("Horizontal");
 
         GroundCheck = Physics2D.Raycast(transform.position, Vector2.down, GroundLine, GroundLayer);
-
-        // dash
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            StartCoroutine(dash());
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            rb.AddForce(transform.right * dashpower, ForceMode2D.Impulse);
-        }
 
         // Jumping
 
@@ -140,6 +129,16 @@ public class Player : MonoBehaviour
         {
             Flipe();
         }
+
+        //dash
+        if (isFacingRight)
+        {
+            DashDir = 1;
+        }
+        if (isFacingRight == false)
+        {
+            DashDir = -1;
+        }
     }
 
     void FixedUpdate()
@@ -158,6 +157,16 @@ public class Player : MonoBehaviour
         else if (rb.velocity.y < 0)
         {
             rb.gravityScale = FallingGravityScale;
+        }
+
+        //dash
+        if (Input.GetKeyDown(KeyCode.LeftShift) && CanDash)
+        {
+            StartCoroutine(Dash());
+        }
+        if (dashing)
+        {
+            return;
         }
     }
     private void OnDrawGizmos()
@@ -244,15 +253,30 @@ public class Player : MonoBehaviour
 
     private void Flipe()
     {
-        if (Horizontal < 0f)
+        if (Horizontal < 0f && isFacingRight)
         {
-            isFacingRight = !isFacingRight;
+            isFacingRight = false;
             transform.rotation = Quaternion.Euler(0, -180, 0);
         }
-        if (Horizontal > 0f)
+        if (Horizontal > 0f && isFacingRight == false)
         {
-            isFacingRight = !isFacingRight;
+            isFacingRight = true;
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
+    }
+    private IEnumerator Dash()
+    {
+        CanDash = false;
+        dashing = true;
+        float OriginalGravity = rb.gravityScale;
+        rb.AddForce(new Vector2(DashDir * DashPower, 0f), ForceMode2D.Impulse);
+        rb.gravityScale = 0;
+        Tr.emitting = true;
+        yield return new WaitForSeconds(dashTime);
+        Tr.emitting = false;
+        rb.gravityScale = OriginalGravity;
+        dashing = false;
+        yield return new WaitForSeconds(DashCoolDown); ;
+        CanDash = true;
     }
 }
