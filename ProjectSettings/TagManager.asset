@@ -8,6 +8,7 @@ TagManager:
   - Spawner
   - main
   - static
+  - Knife
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - GrapplingLayer
   - Wall
-  - 
+  - Knife
   - 
   - 
   - 
