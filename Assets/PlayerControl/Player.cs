@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
     private Vector2 WallJumpingPower = new Vector2(80f, 180f);
 
     [Header("Flip")]
-    private bool isFacingRight = true;
+    public bool isFacingRight = true;
 
     [Header("Dash")]
     public float DashPower = 2500;
@@ -251,19 +251,6 @@ public class Player : MonoBehaviour
         isWallJumping = false;
     }
 
-    private void Flipe()
-    {
-        if (Horizontal < 0f && isFacingRight)
-        {
-            isFacingRight = false;
-            transform.rotation = Quaternion.Euler(0, -180, 0);
-        }
-        if (Horizontal > 0f && isFacingRight == false)
-        {
-            isFacingRight = true;
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-    }
     private IEnumerator Dash()
     {
         CanDash = false;
@@ -278,5 +265,33 @@ public class Player : MonoBehaviour
         dashing = false;
         yield return new WaitForSeconds(DashCoolDown); ;
         CanDash = true;
+    }
+
+    public void Flipe()
+    {
+        if (Horizontal < 0f && isFacingRight)
+        {
+            isFacingRight = false;
+            transform.rotation = Quaternion.Euler(0, -180, 0);
+        }
+        if (Horizontal > 0f && isFacingRight == false)
+        {
+            isFacingRight = true;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    public void InstantFlipe()
+    {
+        if (isFacingRight)
+        {
+            isFacingRight = false;
+            transform.rotation = Quaternion.Euler(0, -180, 0);
+        }
+        if (isFacingRight == false)
+        {
+            isFacingRight = true;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 }
