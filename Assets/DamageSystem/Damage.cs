@@ -6,8 +6,11 @@ public class Damage : MonoBehaviour
 {
     public GameObject Enemy;
     public float DamageBar = 16;
+    public float KnifeDamage = 4;
+    public float BulletDamage = 8;
     public Rigidbody2D EnemyRB;
-    public bool Triggered;
+    public bool KnifeTrigger;
+    public bool BulletTrigger;
 
     // Start is called before the first frame update
     void Start()
@@ -21,27 +24,36 @@ public class Damage : MonoBehaviour
         {
             Destroy(Enemy);
         }
-        if (Triggered)
+       if (Input.GetKeyDown(KeyCode.Mouse0) && KnifeTrigger)
+       {
+            DamageBar -= KnifeDamage;
+            EnemyRB.velocity = Vector2.right * 4;
+       }
+        if (BulletTrigger)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                DamageBar -= 4;
-                EnemyRB.velocity = Vector2.right * 4;
-            }
+            DamageBar -= BulletDamage;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Knife")
         {
-            Triggered = true;
+            KnifeTrigger = true;
+        }
+        if (collision.gameObject.tag == "Bullet")
+        {
+            BulletTrigger = true;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Knife")
         {
-            Triggered = false;
+            KnifeTrigger = false;
+        }
+        if (collision.gameObject.tag == "Bullet")
+        {
+            BulletTrigger = false;
         }
     }
 }

@@ -9,6 +9,8 @@ TagManager:
   - main
   - static
   - Knife
+  - Gun
+  - Bullet
   layers:
   - Default
   - TransparentFX
