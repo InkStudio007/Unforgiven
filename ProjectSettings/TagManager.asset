@@ -11,6 +11,8 @@ TagManager:
   - Knife
   - Gun
   - Bullet
+  - MedicineSpawner
+  - Enemie
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - GrapplingLayer
   - Wall
   - Knife
-  - 
+  - Enemie
   - 
   - 
   - 

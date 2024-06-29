@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Camera MainCam;
+    public Camera MainCam;
     private Rigidbody2D rb;
     private Vector3 MousePos;
     public float Force;
@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
         MainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rb = gameObject.GetComponent<Rigidbody2D>();
 
-        MousePos = MainCam.ScreenToWorldPoint(Input.mousePosition);
+        //MousePos = MainCam(Input.mousePosition);
 
         Vector3 Direction = MousePos - transform.position;
         Vector3 Rotation = transform.position - MousePos;

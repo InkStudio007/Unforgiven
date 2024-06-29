@@ -6,9 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class Player_HealSystem : MonoBehaviour
 {
-    public Image HealthBar;
+    public List<Image> HeartsD;
+    public List<Image> HeartsH;
 
-    public float HealthAmount = 100f;
+    public float HealthAmount = 4f;
     public float MedicineAmount = 0;
     public Text MedicineText;
     public GameObject Medicine;
@@ -18,7 +19,7 @@ public class Player_HealSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MedicineSpawner = GameObject.FindGameObjectWithTag("Spawner");
+        MedicineSpawner = GameObject.FindGameObjectWithTag("MedicineSpawner");
     }
 
     // Update is called once per frame
@@ -28,14 +29,15 @@ public class Player_HealSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && MedicineAmount > 0)
         {
-            Heal(20);
+            Heal(1);
             MedicineAmount -= 1;
         }
 
         if (Input.GetKeyDown(KeyCode.F))
-        {
-            Damage(20);
+        { 
+            Damage(1);
         }
+        
 
         CoolDown -= Time.deltaTime;
         if (CoolDown <= 0)
@@ -53,14 +55,37 @@ public class Player_HealSystem : MonoBehaviour
     public void Damage(float Damage)
     {
         HealthAmount -= Damage;
-        HealthBar.fillAmount = HealthAmount / 100f;
+         
+        foreach (Image Heart in HeartsD)
+        {
+            if (Heart.IsActive())
+            {
+                Heart.enabled = false;
+                break;
+            }
+            else
+            {
+                // Do nothing
+            }
+        }
+        
     }
 
     public void Heal(float Heal)
     {
         HealthAmount += Heal;
-        HealthAmount = Mathf.Clamp(HealthAmount, 0, 100);
+        foreach (Image Heart in HeartsH)
+        {
+            if (Heart.IsActive() == false)
+            {
+                Heart.enabled = true;
+                break;
+            }
+            else
+            {
+                // Do nothing
+            }
+        }
 
-        HealthBar.fillAmount = HealthAmount / 100;
     }
 }
