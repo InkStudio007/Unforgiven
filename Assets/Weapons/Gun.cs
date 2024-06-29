@@ -5,7 +5,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     private Player PlayerScript;
-    private Camera mainCam;
+    public Camera mainCam;
     private Vector3 MousePos;
     public Transform RotationPoint;
     public GameObject Bullet;
@@ -26,7 +26,7 @@ public class Gun : MonoBehaviour
     void Update()
     {
         //Rotation
-        MousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        MousePos = (Input.mousePosition);
         Vector3 Rotation = MousePos - RotationPoint.position;
         float rotZ = Mathf.Atan2(Rotation.y, Rotation.x) * Mathf.Rad2Deg;
 
