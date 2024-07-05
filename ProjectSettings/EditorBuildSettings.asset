@@ -6,7 +6,22 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MrOctopus.unity
-    guid: 8e56ea1138f59f440b6aaf914e7b4034
+    path: Assets/Scenes/Hospital sceneManagement/1.unity
+    guid: 2a90775f9a25b344ba4c7680e2a07fd4
+  - enabled: 1
+    path: Assets/Scenes/Hospital sceneManagement/2.unity
+    guid: 624b270687ca7ed418b274f84d1d0151
+  - enabled: 1
+    path: Assets/Scenes/Hospital sceneManagement/3.unity
+    guid: a2e25a76df9c38e4798668aaade791ee
+  - enabled: 1
+    path: Assets/Scenes/Hospital sceneManagement/5.unity
+    guid: 3778b151d1810b84cb76f0942673f8a1
+  - enabled: 1
+    path: Assets/Scenes/Hospital sceneManagement/Hospital Elevator part.unity
+    guid: 76cc6538bdbe02c4598fe79a08b8ca1c
+  - enabled: 1
+    path: Assets/Scenes/Hospital sceneManagement/4.unity
+    guid: 54886ab6d63866049b2737c611cd7a11
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
