@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
 
     [Header("Movment")]
-    private float Horizontal;
+    public float Horizontal;
     public float movespeed = 5;
     public float JumpForce;
     public float GravityScale = 10;
@@ -57,6 +57,8 @@ public class Player : MonoBehaviour
     private bool CanDash = true;
     public float dashTime = 0.2f;
     public TrailRenderer Tr;
+
+    public Ladder Ladder;
     
     // Start is called before the first frame update
     void Start()
@@ -168,6 +170,9 @@ public class Player : MonoBehaviour
         {
             return;
         }
+
+        //Climbing Ladder
+        Ladder.ClibeLadder();
     }
     private void OnDrawGizmos()
     {
