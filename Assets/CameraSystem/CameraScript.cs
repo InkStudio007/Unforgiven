@@ -16,6 +16,7 @@ public class CameraScript : MonoBehaviour
     private bool isFalling;
 
     public float VerticalOffSet = 33;
+    public Ladder Ladder;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +29,7 @@ public class CameraScript : MonoBehaviour
     void LateUpdate()
     {
 
-        if (Player.GroundCheck)
+        if (Player.GroundCheck || Ladder.isClimbing)
         {
             TargetPoint.y = Player.transform.position.y + VerticalOffSet;
         }

@@ -337,6 +337,7 @@ MonoBehaviour:
   DashCoolDown: 0.4
   dashTime: 0.2
   Tr: {fileID: 7297502603817944977}
+  Ladder: {fileID: 6911154975524546849, guid: 3ca5aaee9a5d7944e916ae273c6a1ce9, type: 3}
 --- !u!114 &571702349231467775
 MonoBehaviour:
   m_ObjectHideFlags: 0
