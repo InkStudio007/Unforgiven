@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 1440645078324490249}
   - component: {fileID: 1444677373242764901}
   m_Layer: 0
-  m_Name: player
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ Transform:
   m_GameObject: {fileID: 412456726972670075}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.53, y: 2.99, z: -0.040409}
+  m_LocalPosition: {x: -2.53, y: 2.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -937,6 +937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b130e3e185f571e41a9c53637a6f04c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 0}
   RotationPoint: {fileID: 2348344846488077286}
   Bullet: {fileID: 2090301456263372718, guid: b41b404282743d14dbd346adc8719570, type: 3}
   BulletPoint: {fileID: 3110046647721125344}

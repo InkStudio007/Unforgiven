@@ -9,13 +9,13 @@ public class CameraScript : MonoBehaviour
 
     public float movespeed;
 
-    public float lookAheadDistance = 70f ,lookAheadSpeed = 3f; 
+    public float lookAheadDistance = 30f ,lookAheadSpeed = 3f; 
 
     private float LookOffSet;
 
     private bool isFalling;
 
-    public float VerticalOffSet;
+    public float VerticalOffSet = 33;
     // Start is called before the first frame update
     void Start()
     {
