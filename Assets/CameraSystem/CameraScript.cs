@@ -9,13 +9,13 @@ public class CameraScript : MonoBehaviour
 
     public float movespeed;
 
-    public float lookAheadDistance = 30f ,lookAheadSpeed = 3f; 
+    public float lookAheadDistance = 70f ,lookAheadSpeed = 3f; 
 
     private float LookOffSet;
 
     private bool isFalling;
-
     public float VerticalOffSet = 33;
+    
     public Ladder Ladder;
     // Start is called before the first frame update
     void Start()
@@ -29,7 +29,9 @@ public class CameraScript : MonoBehaviour
     void LateUpdate()
     {
 
+
         if (Player.GroundCheck || Ladder.isClimbing)
+
         {
             TargetPoint.y = Player.transform.position.y + VerticalOffSet;
         }
