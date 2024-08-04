@@ -7,6 +7,7 @@ public class MovingPlatform : MonoBehaviour
     public Transform Platform;
     public Transform StartPoint;
     public Transform EndPoint;
+    public Rigidbody2D rb;
 
     private int Direction = 1;
     public float MoveSpeed;
@@ -16,7 +17,7 @@ public class MovingPlatform : MonoBehaviour
     {
         Vector2 Target = CurrentTarget();
 
-        Platform.position = Vector2.MoveTowards(Platform.position, Target, MoveSpeed * Time.deltaTime);
+        Platform.transform.position = Vector2.MoveTowards(Platform.position, Target, MoveSpeed * Time.deltaTime);
 
         float Distance = (Target - (Vector2)Platform.position).magnitude;
         if (Distance <= 0.1f)
