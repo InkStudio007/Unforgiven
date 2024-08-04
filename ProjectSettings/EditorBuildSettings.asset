@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Hospital sceneManagement/5.unity
     guid: 3778b151d1810b84cb76f0942673f8a1
   - enabled: 1
-    path: Assets/Scenes/Hospital sceneManagement/Hospital Elevator part.unity
+    path: Assets/Scenes/Hospital sceneManagement/6.unity
     guid: 76cc6538bdbe02c4598fe79a08b8ca1c
   - enabled: 1
     path: Assets/Scenes/Hospital sceneManagement/4.unity
