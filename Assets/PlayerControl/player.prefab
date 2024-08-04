@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 2392654398554666833}
   - component: {fileID: 571702349231467775}
   - component: {fileID: 1498036552749341652}
-  - component: {fileID: 3223946400020778783}
   - component: {fileID: 1440645078324490249}
   - component: {fileID: 1444677373242764901}
   m_Layer: 0
@@ -313,6 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 412456726972670075}
   rb: {fileID: 0}
+  Horizontal: 0
   movespeed: 80
   JumpForce: 140
   GravityScale: 65
@@ -338,6 +338,7 @@ MonoBehaviour:
   dashTime: 0.2
   Tr: {fileID: 7297502603817944977}
   Ladder: {fileID: 6911154975524546849, guid: 3ca5aaee9a5d7944e916ae273c6a1ce9, type: 3}
+  SpiderWeb: {fileID: 0}
 --- !u!114 &571702349231467775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,20 +371,6 @@ MonoBehaviour:
     m_Bits: 64
   GrappleRope: {fileID: 0}
   GrapplingArea: 0
---- !u!114 &3223946400020778783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 412456726972670075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c27d46acca3be7542801bd773bc22e09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Gun: {fileID: 3769096298534331984}
-  Knife: {fileID: 2595481780677127632}
 --- !u!114 &1440645078324490249
 MonoBehaviour:
   m_ObjectHideFlags: 0

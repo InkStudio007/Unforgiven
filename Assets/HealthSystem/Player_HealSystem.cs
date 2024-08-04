@@ -9,8 +9,8 @@ public class Player_HealSystem : MonoBehaviour
     public List<Image> HeartsD;
     public List<Image> HeartsH;
 
-    public float HealthAmount = 4f;
-    public float MedicineAmount = 0;
+    public int HealthAmount = 4;
+    public int MedicineAmount = 0;
     public Text MedicineText;
     public GameObject Medicine;
     private GameObject MedicineSpawner;
@@ -52,7 +52,7 @@ public class Player_HealSystem : MonoBehaviour
         }
     }
 
-    public void Damage(float Damage)
+    public void Damage(int Damage)
     {
         HealthAmount -= Damage;
          
@@ -71,7 +71,7 @@ public class Player_HealSystem : MonoBehaviour
         
     }
 
-    public void Heal(float Heal)
+    public void Heal(int Heal)
     {
         HealthAmount += Heal;
         foreach (Image Heart in HeartsH)
