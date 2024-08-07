@@ -12,8 +12,9 @@ TagManager:
   - Gun
   - Bullet
   - MedicineSpawner
-  - Enemie
   - Ladder
+  - Enemy
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
