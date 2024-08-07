@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 
     [Header("GroundCheck")]
     public bool GroundCheck = false;
+    private bool PlatformCheck = false;
     public float GroundLine = 1.5f;
     public LayerMask GroundLayer;
 
@@ -59,13 +60,13 @@ public class Player : MonoBehaviour
     public TrailRenderer Tr;
 
     public Ladder Ladder;
+    public SpiderWeb SpiderWeb;
     
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
-
 
     // Update is called once per frame
     void Update()
@@ -74,9 +75,78 @@ public class Player : MonoBehaviour
 
         GroundCheck = Physics2D.Raycast(transform.position, Vector2.down, GroundLine, GroundLayer);
 
-        // Jumping
+        if (SpiderWeb.isSlownessEffected == false)
+        {
+            // Jumping
 
-        if (GroundCheck)
+            Jump();
+
+            //dash
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && CanDash)
+            {
+                StartCoroutine(Dash());
+            }
+            if (dashing)
+            {
+                return;
+            }
+        }
+
+        // Flip
+
+        if (!isWallJumping)
+        {
+            Flipe();
+        }
+
+        if (isFacingRight)
+        {
+            DashDir = 1;
+        }
+        if (isFacingRight == false)
+        {
+            DashDir = -1;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        // Moving
+        if (!isWallJumping)
+        {
+            rb.velocity = new Vector2(Horizontal * movespeed, rb.velocity.y);
+        }
+
+        // Changing gravity
+        if (rb.velocity.y >= 0)
+        {
+            rb.gravityScale = GravityScale;
+        }
+        else if (rb.velocity.y < 0)
+        {
+            rb.gravityScale = FallingGravityScale;
+        }
+
+        // DoubleJump
+
+        DoubleJump();
+
+        // WallSlide
+
+        WallSlide();
+
+        // WallJump
+
+        WallJump();
+
+        //Climbing Ladder
+        Ladder.ClibeLadder();
+    }
+
+    private void Jump()
+    {
+        if (GroundCheck || PlatformCheck)
         {
             CoyoteCounter = 0.1f;
         }
@@ -107,77 +177,11 @@ public class Player : MonoBehaviour
             JumpTime += Time.deltaTime;
         }
 
-        if (Input.GetKeyUp(KeyCode.Space) | JumpTime > ButtonTime) 
+        if (Input.GetKeyUp(KeyCode.Space) | JumpTime > ButtonTime)
         {
             Jumping = false;
             CoyoteCounter = 0;
         }
-
-        // DoubleJump
-
-        DoubleJump();
-
-        // WallSlide
-
-        WallSlide();
-
-        // WallJump
-
-        WallJump();
-
-        // Flip
-
-        if (!isWallJumping)
-        {
-            Flipe();
-        }
-
-        //dash
-        if (isFacingRight)
-        {
-            DashDir = 1;
-        }
-        if (isFacingRight == false)
-        {
-            DashDir = -1;
-        }
-    }
-
-    void FixedUpdate()
-    {
-        // Moving
-        if (!isWallJumping)
-        {
-            rb.velocity = new Vector2(Horizontal * movespeed, rb.velocity.y);
-        }
-
-        // Changing gravity
-        if (rb.velocity.y >= 0)
-        {
-            rb.gravityScale = GravityScale;
-        }
-        else if (rb.velocity.y < 0)
-        {
-            rb.gravityScale = FallingGravityScale;
-        }
-
-        //dash
-        if (Input.GetKeyDown(KeyCode.LeftShift) && CanDash)
-        {
-            StartCoroutine(Dash());
-        }
-        if (dashing)
-        {
-            return;
-        }
-
-        //Climbing Ladder
-        Ladder.ClibeLadder();
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * GroundLine);
     }
 
     private void DoubleJump()
@@ -298,5 +302,29 @@ public class Player : MonoBehaviour
             isFacingRight = true;
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "MovingPlatform")
+        {
+            this.transform.parent = collision.transform;
+            PlatformCheck = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "MovingPlatform")
+        {
+            this.transform.parent = null;
+            PlatformCheck = false;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * GroundLine);
     }
 }

@@ -10,7 +10,7 @@ public class knife : MonoBehaviour
     public float HitBoxX;
     public float HitBoxy;
     public LayerMask Enemies;
-    public float Damage;
+    public int Damage;
 
 
     // Start is called before the first frame update
@@ -28,11 +28,13 @@ public class knife : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                Debug.Log("Attack Time");
                 AttackTime = StartAttackTime;
                 Collider2D[] HitBox = Physics2D.OverlapBoxAll(HitBoxPos.position, new Vector2(HitBoxX, HitBoxy), 0, Enemies);
                 for (int i = 0; i < HitBox.Length; i++)
                 {
-                    HitBox[i].GetComponent<Enemy>().TakeDamage(Damage);
+                    Debug.Log("Attack");
+                    HitBox[i].GetComponent<Enemy_Health>().TakeDamage(Damage);
                 }
             }
         }
