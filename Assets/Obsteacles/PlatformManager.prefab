@@ -112,6 +112,7 @@ MonoBehaviour:
   Platform: {fileID: 6663263906548473096}
   StartPoint: {fileID: 6935212334315494340}
   EndPoint: {fileID: 9162359983369860915}
+  rb: {fileID: 0}
   MoveSpeed: 70
 --- !u!1 &7120084731014033557
 GameObject:
@@ -125,9 +126,9 @@ GameObject:
   - component: {fileID: 3182849910614658729}
   - component: {fileID: 5668428879328883272}
   - component: {fileID: 8442323078163832502}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

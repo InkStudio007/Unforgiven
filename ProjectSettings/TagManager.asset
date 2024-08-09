@@ -15,6 +15,9 @@ TagManager:
   - Ladder
   - Enemy
   - MovingPlatform
+  - CannonBall
+  - 'Cannon Target '
+  - Inventory
   layers:
   - Default
   - TransparentFX
