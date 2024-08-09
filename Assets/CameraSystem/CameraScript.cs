@@ -14,9 +14,8 @@ public class CameraScript : MonoBehaviour
     private float LookOffSet;
 
     private bool isFalling;
-    
     public float VerticalOffSet = 33;
-
+    
     public Ladder Ladder;
     // Start is called before the first frame update
     void Start()
