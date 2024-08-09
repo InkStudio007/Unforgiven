@@ -80,17 +80,6 @@ public class Player : MonoBehaviour
             // Jumping
 
             Jump();
-
-            //dash
-
-            if (Input.GetKeyDown(KeyCode.LeftShift) && CanDash)
-            {
-                StartCoroutine(Dash());
-            }
-            if (dashing)
-            {
-                return;
-            }
         }
 
         // Flip
@@ -140,13 +129,27 @@ public class Player : MonoBehaviour
 
         WallJump();
 
+        if (SpiderWeb.isSlownessEffected == false)
+        {
+            //dash
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && CanDash)
+            {
+                StartCoroutine(Dash());
+            }
+            if (dashing)
+            {
+                return;
+            }
+        }
+
         //Climbing Ladder
         Ladder.ClibeLadder();
     }
 
     private void Jump()
     {
-        if (GroundCheck || PlatformCheck)
+        if (GroundCheck)
         {
             CoyoteCounter = 0.1f;
         }
@@ -309,7 +312,6 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "MovingPlatform")
         {
             this.transform.parent = collision.transform;
-            PlatformCheck = true;
         }
     }
 
@@ -318,7 +320,6 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "MovingPlatform")
         {
             this.transform.parent = null;
-            PlatformCheck = false;
         }
     }
 
