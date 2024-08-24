@@ -441,6 +441,10 @@ PrefabInstance:
       propertyPath: KnifeDamage
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3832317168612013555, guid: 576515759fdb5b54e8f11ac393c1a7e7, type: 3}
+      propertyPath: UpWardForce
+      value: 1300
+      objectReference: {fileID: 0}
     - target: {fileID: 6203105201333968649, guid: 576515759fdb5b54e8f11ac393c1a7e7, type: 3}
       propertyPath: KnifeDamage
       value: 1
@@ -473,6 +477,10 @@ PrefabInstance:
       propertyPath: StartAttackTime
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 7296093314231697935, guid: 576515759fdb5b54e8f11ac393c1a7e7, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2449567e76621a84fb8b95c49f82ad57, type: 2}
     - target: {fileID: 8873699705088251118, guid: 576515759fdb5b54e8f11ac393c1a7e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.4
