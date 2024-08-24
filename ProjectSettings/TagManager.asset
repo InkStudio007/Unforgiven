@@ -6,6 +6,18 @@ TagManager:
   tags:
   - GroundCheck
   - Spawner
+  - main
+  - static
+  - Knife
+  - Gun
+  - Bullet
+  - MedicineSpawner
+  - Ladder
+  - Enemy
+  - MovingPlatform
+  - CannonBall
+  - 'Cannon Target '
+  - Inventory
   layers:
   - Default
   - TransparentFX
@@ -14,9 +26,9 @@ TagManager:
   - Water
   - UI
   - GrapplingLayer
-  - 
-  - 
-  - 
+  - Wall
+  - Knife
+  - Enemie
   - 
   - 
   - 

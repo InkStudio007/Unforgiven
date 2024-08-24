@@ -6,23 +6,62 @@ public class Player : MonoBehaviour
 {
     public GameObject player;
     public Rigidbody2D rb;
-    private float Horizontal;
+
+    [Header("Movment")]
+    public float Horizontal;
     public float movespeed = 5;
     public float JumpForce;
     public float GravityScale = 10;
     public float FallingGravityScale = 40;
+
     [Header("GroundCheck")]
     public bool GroundCheck = false;
+    private bool PlatformCheck = false;
     public float GroundLine = 1.5f;
     public LayerMask GroundLayer;
-    //jump window
+
+    [Header("jump Window")]
     private bool Jumping;
-    private float ButtonTime = 0.2f;
+    public float ButtonTime = 0.23f;
     private float JumpTime;
-    // Forgiving the player
+
+    [Header("Fogiving The Player")]
     private float CoyoteCounter;
     private float JumpBufferCounter;
 
+    [Header("DoubleJump")]
+    public float DoubleJumpCount = 0;
+    public float DoubleJumpForce;
+
+    [Header("Wall Sliding")]
+    public bool isWallSliding;
+    public float WallSlidingSpeed = 2f;
+    public Transform WallCheck;
+    public LayerMask WallLayer;
+
+    [Header("Wall Jumping")]
+    public bool isWallJumping;
+    private float WallJumpingDirection;
+    private float WallJumpingTime = 0.2f;
+    private float WallJumpingCounter;
+    private float WallJumpingDuration = 0.2f;
+    private Vector2 WallJumpingPower = new Vector2(80f, 180f);
+
+    [Header("Flip")]
+    public bool isFacingRight = true;
+
+    [Header("Dash")]
+    public float DashPower = 2500;
+    public float DashCoolDown = 0.4f;
+    private float DashDir;
+    private bool dashing;
+    private bool CanDash = true;
+    public float dashTime = 0.2f;
+    public TrailRenderer Tr;
+
+    public Ladder Ladder;
+    public SpiderWeb SpiderWeb;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -36,12 +75,83 @@ public class Player : MonoBehaviour
 
         GroundCheck = Physics2D.Raycast(transform.position, Vector2.down, GroundLine, GroundLayer);
 
+        if (SpiderWeb.isSlownessEffected == false)
+        {
+            // Jumping
 
-        // Jumping
+            Jump();
+        }
 
+        // Flip
+
+        if (!isWallJumping)
+        {
+            Flipe();
+        }
+
+        if (isFacingRight)
+        {
+            DashDir = 1;
+        }
+        if (isFacingRight == false)
+        {
+            DashDir = -1;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        // Moving
+        if (!isWallJumping)
+        {
+            rb.velocity = new Vector2(Horizontal * movespeed, rb.velocity.y);
+        }
+
+        // Changing gravity
+        if (rb.velocity.y >= 0)
+        {
+            rb.gravityScale = GravityScale;
+        }
+        else if (rb.velocity.y < 0)
+        {
+            rb.gravityScale = FallingGravityScale;
+        }
+
+        // DoubleJump
+
+        DoubleJump();
+
+        // WallSlide
+
+        WallSlide();
+
+        // WallJump
+
+        WallJump();
+
+        if (SpiderWeb.isSlownessEffected == false)
+        {
+            //dash
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && CanDash)
+            {
+                StartCoroutine(Dash());
+            }
+            if (dashing)
+            {
+                return;
+            }
+        }
+
+        //Climbing Ladder
+        Ladder.ClibeLadder();
+    }
+
+    private void Jump()
+    {
         if (GroundCheck)
         {
-            CoyoteCounter = 0.2f;
+            CoyoteCounter = 0.1f;
         }
         else
         {
@@ -50,7 +160,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            JumpBufferCounter = 0.2f;
+            JumpBufferCounter = 0.1f;
         }
         else
         {
@@ -77,21 +187,142 @@ public class Player : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void DoubleJump()
     {
-        // Moving
-        rb.velocityX = Horizontal * movespeed * Time.deltaTime;
-       
-        // Changing gravity
-        if (rb.velocity.y >= 0)
+        if (GroundCheck && Input.GetKeyDown(KeyCode.Space))
         {
-            rb.gravityScale = GravityScale;
+            DoubleJumpCount = 1;
         }
-        else if (rb.velocity.y < 0)
+        if (!GroundCheck && Input.GetKeyDown(KeyCode.Space) && DoubleJumpCount > 0)
         {
-            rb.gravityScale = FallingGravityScale;
+            rb.velocity = new Vector2(rb.velocity.x, DoubleJumpForce);
+            DoubleJumpCount = 0;
         }
     }
+
+    private bool isWalled()
+    {
+        return Physics2D.OverlapCircle(WallCheck.position, 0.2f, WallLayer);
+    }
+
+    private void WallSlide()
+    {
+        if (isWalled() && !GroundCheck && Horizontal != 0)
+        {
+            isWallSliding = true;
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -WallSlidingSpeed, float.MaxValue));
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
+
+    private void WallJump()
+    {
+        if (isWallSliding)
+        {
+            isWallJumping = false;
+            WallJumpingDirection = -transform.localScale.x;
+            WallJumpingCounter = WallJumpingTime;
+
+            CancelInvoke(nameof(StopWallJump));
+        }
+        else
+        {
+            WallJumpingCounter -= Time.deltaTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && WallJumpingCounter > 0) 
+        {
+            isWallJumping = true;
+            rb.velocity = new Vector2(WallJumpingDirection * WallJumpingPower.x, WallJumpingPower.y);
+            WallJumpingCounter = 0f;
+
+            if (transform.localScale.x != WallJumpingDirection)
+            {
+                if (Horizontal < 0f)
+                {
+                    isFacingRight = !isFacingRight;
+                    transform.rotation = Quaternion.Euler(0, -180, 0);
+                }
+                if (Horizontal > 0f)
+                {
+                    isFacingRight = !isFacingRight;
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+                }
+            }
+
+            Invoke(nameof(StopWallJump), WallJumpingDuration);
+        }
+
+    }
+
+    private void StopWallJump()
+    {
+        isWallJumping = false;
+    }
+
+    private IEnumerator Dash()
+    {
+        CanDash = false;
+        dashing = true;
+        float OriginalGravity = rb.gravityScale;
+        rb.AddForce(new Vector2(DashDir * DashPower, 0f), ForceMode2D.Impulse);
+        rb.gravityScale = 0;
+        Tr.emitting = true;
+        yield return new WaitForSeconds(dashTime);
+        Tr.emitting = false;
+        rb.gravityScale = OriginalGravity;
+        dashing = false;
+        yield return new WaitForSeconds(DashCoolDown); ;
+        CanDash = true;
+    }
+
+    public void Flipe()
+    {
+        if (Horizontal < 0f && isFacingRight)
+        {
+            isFacingRight = false;
+            transform.rotation = Quaternion.Euler(0, -180, 0);
+        }
+        if (Horizontal > 0f && isFacingRight == false)
+        {
+            isFacingRight = true;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    public void InstantFlipe()
+    {
+        if (isFacingRight)
+        {
+            isFacingRight = false;
+            transform.rotation = Quaternion.Euler(0, -180, 0);
+        }
+        if (isFacingRight == false)
+        {
+            isFacingRight = true;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "MovingPlatform")
+        {
+            this.transform.parent = collision.transform;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "MovingPlatform")
+        {
+            this.transform.parent = null;
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
