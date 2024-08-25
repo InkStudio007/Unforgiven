@@ -18,6 +18,8 @@ TagManager:
   - CannonBall
   - 'Cannon Target '
   - Inventory
+  - CameraTarget
+  - VirtualCamera
   layers:
   - Default
   - TransparentFX

@@ -4,65 +4,92 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
-    private Player Player;
-    private Vector3 TargetPoint = Vector3.zero;
+    [Header("Variables")]
+    public Player GroundCheck;
+    public Player PlatformCheck;
+    public GameObject PlayerChild;
+    public Ladder isClimbing;
+    private Vector3 TargetPoint;
+    private Vector3 velocity = Vector3.zero;
+    private float velocityFloat = 0.0f;
+    private Rigidbody2D rb;
+    [SerializeField]
+    private float MoveSpeed = 1;
 
-    public float movespeed;
 
-    public float lookAheadDistance = 70f ,lookAheadSpeed = 3f; 
+    [Header("Player Falling")]
+    [SerializeField] private bool FallingCheck = false;
+    [SerializeField] private float FallingTimer;
+    [SerializeField] private float FallingTimerRecycle = 0.5f;
 
-    private float LookOffSet;
+    [Header("Falling")]
+    [SerializeField]
+    private float FallingOffsetDistance;
+    [SerializeField]
+    private float FallingOffsetSpeed;
+    [SerializeField]
+    private float FallingOffset;
 
-    private bool isFalling;
-    public float VerticalOffSet = 33;
-    
-    public Ladder Ladder;
+
+    [Header("Vertical Offset")]
+    [SerializeField]
+    private float VerticalOffset;
+
+
+    [Header("Vertical Look Out")]
+    [SerializeField]
+    private float LookOutDistance;
+    [SerializeField]
+    private float LookOutSpeed;
+    [SerializeField]
+    private float LookOutTimerRecycle = 1f;
+    private float VerticalLookOut;
+    private float LookOutTimer;
+
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        TargetPoint = new Vector3(PlayerChild.transform.position.x, PlayerChild.transform.position.y, -10);
+        transform.position = TargetPoint;
 
-        TargetPoint = new Vector3(Player.transform.position.x, Player.transform.position.y, transform.position.z);
+        LookOutTimer = LookOutTimerRecycle;
+        FallingTimer = FallingTimerRecycle;
     }
-
-    // Update is called once per frame
-    void LateUpdate()
+    private void LateUpdate()
     {
+        //Vertical offset added
+        TargetPoint.x = PlayerChild.transform.position.x;
+        TargetPoint.y = PlayerChild.transform.position.y + VerticalOffset + VerticalLookOut + FallingOffset;
+        transform.position = TargetPoint;
 
-
-        if (Player.GroundCheck || Ladder.isClimbing)
-
+        //falling
+        if (rb.velocity.y < 0)
         {
-            TargetPoint.y = Player.transform.position.y + VerticalOffSet;
-        }
-
-        if(transform.position.y - Player.transform.position.y > VerticalOffSet)
-        {
-            isFalling = true;
-        }
-
-        if (isFalling)
-        {
-            TargetPoint.y = Player.transform.position.y;
-            if (Player.GroundCheck)
+            Debug.Log("Velocity Check");
+            FallingTimer -= Time.deltaTime;
+            if (FallingTimer <= 0)
             {
-                isFalling = false;
+                Debug.Log("Falling true");
+                FallingCheck = true;
+                FallingTimer = FallingTimerRecycle;
+            }
+            if (rb.velocity.y >= 0)
+            {
+                Debug.Log("falling true");
+                FallingCheck = false;
+                FallingTimer = FallingTimerRecycle;
             }
         }
 
-
-        if (Player.rb.velocity.x > 0)
+        if (FallingCheck)
         {
-            LookOffSet = Mathf.Lerp(LookOffSet, lookAheadDistance, lookAheadSpeed * Time.deltaTime);
+            Debug.Log("falling works");
+            // FallingOffset = Mathf.SmoothDamp(FallingOffset, FallingOffsetDistance, ref velocity, FallingOffsetSpeed);
         }
-        if (Player.rb.velocity.x < 0)
+        if (FallingCheck == false)
         {
-            LookOffSet = Mathf.Lerp(LookOffSet, -lookAheadDistance, lookAheadSpeed * Time.deltaTime);
+            Debug.Log("falling works is zero");
+            FallingOffset = 0;
         }
-
-        TargetPoint.x = Player.transform.position.x + LookOffSet;
-
-
-        transform.position = Vector3.Lerp(transform.position, TargetPoint, movespeed * Time.deltaTime);
     }
 }
