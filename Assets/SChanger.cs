@@ -12,14 +12,26 @@ public class SChanger : MonoBehaviour
     private string TargetSceneName;
 
     [SerializeField]
-    private Transform SpawnPoint;
+    private Transform SpawnPointLeft;
 
+    [SerializeField]
+    private Transform SpawnPointRight;
+
+    [SerializeField]
+    private Player isFacingRight;
     [System.Obsolete]
     private void Start()
     {
         if(_Connection == Connection.ActiveConnection)
         {
-            FindObjectOfType<Player>().transform.position = SpawnPoint.position;
+            if (isFacingRight)
+            {
+                FindObjectOfType<Player>().transform.position = SpawnPointRight.position;
+            }
+            if(isFacingRight == false)
+            {
+                FindObjectOfType<Player>().transform.position = SpawnPointLeft.position;
+            }
         }
     }
 

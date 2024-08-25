@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     private Vector2 WallJumpingPower = new Vector2(80f, 180f);
 
     [Header("Flip")]
-    public bool isFacingRight = true;
+    public bool isFacingRight;
 
     [Header("Dash")]
     public float DashPower = 2500;
@@ -66,6 +66,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        isFacingRight = true;
+
+        //fallling
     }
 
     // Update is called once per frame
@@ -84,10 +87,7 @@ public class Player : MonoBehaviour
 
         // Flip
 
-        if (!isWallJumping)
-        {
-            Flipe();
-        }
+        Flip();
 
         if (isFacingRight)
         {
@@ -97,8 +97,9 @@ public class Player : MonoBehaviour
         {
             DashDir = -1;
         }
-    }
 
+        //falling
+    }
     void FixedUpdate()
     {
         // Moving
@@ -123,11 +124,11 @@ public class Player : MonoBehaviour
 
         // WallSlide
 
-        WallSlide();
+        //WallSlide();
 
         // WallJump
 
-        WallJump();
+        //WallJump();
 
         if (SpiderWeb.isSlownessEffected == false)
         {
@@ -233,7 +234,7 @@ public class Player : MonoBehaviour
             WallJumpingCounter -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && WallJumpingCounter > 0) 
+        if (Input.GetKeyDown(KeyCode.Space) && WallJumpingCounter > 0)
         {
             isWallJumping = true;
             rb.velocity = new Vector2(WallJumpingDirection * WallJumpingPower.x, WallJumpingPower.y);
@@ -241,16 +242,7 @@ public class Player : MonoBehaviour
 
             if (transform.localScale.x != WallJumpingDirection)
             {
-                if (Horizontal < 0f)
-                {
-                    isFacingRight = !isFacingRight;
-                    transform.rotation = Quaternion.Euler(0, -180, 0);
-                }
-                if (Horizontal > 0f)
-                {
-                    isFacingRight = !isFacingRight;
-                    transform.rotation = Quaternion.Euler(0, 0, 0);
-                }
+                InstantFlipe();
             }
 
             Invoke(nameof(StopWallJump), WallJumpingDuration);
@@ -275,18 +267,18 @@ public class Player : MonoBehaviour
         Tr.emitting = false;
         rb.gravityScale = OriginalGravity;
         dashing = false;
-        yield return new WaitForSeconds(DashCoolDown); ;
+        yield return new WaitForSeconds(DashCoolDown);
         CanDash = true;
     }
 
-    public void Flipe()
+    public void Flip()
     {
-        if (Horizontal < 0f && isFacingRight)
+        if (Horizontal < 0f)
         {
             isFacingRight = false;
-            transform.rotation = Quaternion.Euler(0, -180, 0);
+            transform.rotation = Quaternion.Euler(transform.rotation.x, -180, 0);
         }
-        if (Horizontal > 0f && isFacingRight == false)
+        if (Horizontal > 0f)
         {
             isFacingRight = true;
             transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -328,4 +320,6 @@ public class Player : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * GroundLine);
     }
+
+
 }
