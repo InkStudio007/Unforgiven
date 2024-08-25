@@ -6,11 +6,8 @@ public class npcManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] Dailogue;
-    [SerializeField]
     private int DailogueNumber;
-    [SerializeField]
     private bool Talking = false;
-    [SerializeField]
     private bool KeyPressed = false;
 
 
