@@ -485,6 +485,7 @@ GameObject:
   - component: {fileID: 1423824637}
   - component: {fileID: 1423824636}
   - component: {fileID: 1423824635}
+  - component: {fileID: 1423824639}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -583,6 +584,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1423824639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423824634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!114 &1472358465 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5187932945801758172, guid: 6d3d3aea464152348b3092d53162846d, type: 3}
@@ -1058,7 +1103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAMAbIewJ7OOHXwIAABIFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1zmzAQ/SsenesOkKZOemsdx+nBiSdOJxcuAi1GYyExkvBHMv7v3RVgqHuy/N7b3berFZ9MaldD7o1dWilWRgD7MWF0Zl8mA/kER741eiM/oNe8S+FLEvGgeeVeGsRjCnOmAm9l/lNvFYkjBBstC2OrhdjC3DjvEC64coCUNZ6iNUKfE3bEn+k9hZzwlMzo9IGn+2hyxmMO2oMdSeNOOU06YatrdK54VYMg04M8iZM+dRzdtFKNLXWqW6pglJKu88P8qQ79vvITdSskx96CAdKWILelp7zjwJeicOC7xi0/PUiLI2ozsl+mnVvF3a71teeqoRp3wU2bcvUfO40DXVhTPfVV44gq+FLmO/SXc+dHYx3DD4PtOAznwNWOZwreS9DPZmlNowWS3jYU2jhIHoa/l8bmJeS7AW+tXoFNPUy7H3V/h9TDOfR+nCtZZUR9/dYCG2XCpMPVg8U7+Y2Gw2K4LgWi5OKPgze+HW9QRzxK6zxSXZea7GWmsSRlizAz6qbxc2M1BLgzXYPmyp/WmMZfX+AVNyp7xTxyeitd8Y7rn8BVSIAHfRRdUWtzuFyWK81hBa58abySGgbTRDzjnOZG63a/xjPpwzaNLXg+Cts2Uvy7WuxOFDOY3d5HNzzmeZZNxZ2A23gm8u9ZkWRxwsLuSY19crVujXbjwVvTQ3KNe9Z/QiZLy+uw68Lyw1J+VGY0cqkLs8ktgH5pM1yMg8Ui+B7FQkgc0Aa8lzrcN/tMmTL5DkR6SZSGThdHb3k6ZElZLffGE5KyefhmpIzgyy6vLewlHKh4n+zMzn8BUEsDBBQAAAgIAMAbIewdjCNebQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrSSRUqaeaq5qaWBcaJhYnJSkm6KRUqqqaF5SrJZUppRkqGRUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAMAbIewJ7OOHXwIAABIFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAMAbIewdjCNebQAAAHgAAAAJACQAAAAAAAAAAAAAAKwCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAZAMAAAAA
+    dataString: UEsDBBQAAAgIAACAn+sJ7OOHXwIAABIFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1zmzAQ/SsenesOkKZOemsdx+nBiSdOJxcuAi1GYyExkvBHMv7v3RVgqHuy/N7b3berFZ9MaldD7o1dWilWRgD7MWF0Zl8mA/kER741eiM/oNe8S+FLEvGgeeVeGsRjCnOmAm9l/lNvFYkjBBstC2OrhdjC3DjvEC64coCUNZ6iNUKfE3bEn+k9hZzwlMzo9IGn+2hyxmMO2oMdSeNOOU06YatrdK54VYMg04M8iZM+dRzdtFKNLXWqW6pglJKu88P8qQ79vvITdSskx96CAdKWILelp7zjwJeicOC7xi0/PUiLI2ozsl+mnVvF3a71teeqoRp3wU2bcvUfO40DXVhTPfVV44gq+FLmO/SXc+dHYx3DD4PtOAznwNWOZwreS9DPZmlNowWS3jYU2jhIHoa/l8bmJeS7AW+tXoFNPUy7H3V/h9TDOfR+nCtZZUR9/dYCG2XCpMPVg8U7+Y2Gw2K4LgWi5OKPgze+HW9QRzxK6zxSXZea7GWmsSRlizAz6qbxc2M1BLgzXYPmyp/WmMZfX+AVNyp7xTxyeitd8Y7rn8BVSIAHfRRdUWtzuFyWK81hBa58abySGgbTRDzjnOZG63a/xjPpwzaNLXg+Cts2Uvy7WuxOFDOY3d5HNzzmeZZNxZ2A23gm8u9ZkWRxwsLuSY19crVujXbjwVvTQ3KNe9Z/QiZLy+uw68Lyw1J+VGY0cqkLs8ktgH5pM1yMg8Ui+B7FQkgc0Aa8lzrcN/tMmTL5DkR6SZSGThdHb3k6ZElZLffGE5KyefhmpIzgyy6vLewlHKh4n+zMzn8BUEsDBBQAAAgIAACAn+sdjCNebQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrSSRUqaeaq5qaWBcaJhYnJSkm6KRUqqqaF5SrJZUppRkqGRUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAACAn+sJ7OOHXwIAABIFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAACAn+sdjCNebQAAAHgAAAAJACQAAAAAAAAAAAAAAKwCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAZAMAAAAA
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 

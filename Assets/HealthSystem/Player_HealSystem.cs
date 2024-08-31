@@ -15,6 +15,7 @@ public class Player_HealSystem : MonoBehaviour
     public GameObject Medicine;
     private GameObject MedicineSpawner;
     private float CoolDown = 10;
+    public PlayerInfo Info;
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +55,7 @@ public class Player_HealSystem : MonoBehaviour
 
     public void Damage(int Damage)
     {
-        HealthAmount -= Damage;
+        Info.Health -= Damage;
          
         foreach (Image Heart in HeartsD)
         {
@@ -73,7 +74,7 @@ public class Player_HealSystem : MonoBehaviour
 
     public void Heal(int Heal)
     {
-        HealthAmount += Heal;
+        Info.Health += Heal;
         foreach (Image Heart in HeartsH)
         {
             if (Heart.IsActive() == false)

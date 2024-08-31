@@ -661,7 +661,7 @@ PrefabInstance:
     - target: {fileID: 2533225446399442074, guid: 5ceeab9396a6e5e488664b5c8d62ae7f, type: 3}
       propertyPath: _Connection
       value: 
-      objectReference: {fileID: 11400000, guid: 7fa7845b8d299e04e9608fee97dbddcd, type: 2}
+      objectReference: {fileID: 11400000, guid: d699bd942aee7fa40bd177df5b9ab644, type: 2}
     - target: {fileID: 2533225446399442074, guid: 5ceeab9396a6e5e488664b5c8d62ae7f, type: 3}
       propertyPath: TargetSceneName
       value: 1
@@ -1498,6 +1498,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1444677373242764901, guid: 576515759fdb5b54e8f11ac393c1a7e7, type: 3}
+      propertyPath: Info
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f4ce6faee508c846a669d8963cc12df, type: 2}
+    - target: {fileID: 2392654398554666833, guid: 576515759fdb5b54e8f11ac393c1a7e7, type: 3}
+      propertyPath: Info
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f4ce6faee508c846a669d8963cc12df, type: 2}
     - target: {fileID: 2595481780677127632, guid: 576515759fdb5b54e8f11ac393c1a7e7, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1596,6 +1604,7 @@ GameObject:
   - component: {fileID: 1379860758}
   - component: {fileID: 1379860757}
   - component: {fileID: 1379860756}
+  - component: {fileID: 1379860760}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: Untagged
@@ -1693,6 +1702,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1379860760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379860755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!1001 &1387441978
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ public class SChanger : MonoBehaviour
 
     [SerializeField]
     private Player isFacingRight;
+
     [System.Obsolete]
     private void Start()
     {

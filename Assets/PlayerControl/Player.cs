@@ -61,19 +61,24 @@ public class Player : MonoBehaviour
 
     public Ladder Ladder;
     public SpiderWeb SpiderWeb;
+
+    [Header("playerInfo")]
+    public PlayerInfo Info;
     
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         isFacingRight = true;
-
         //fallling
     }
 
     // Update is called once per frame
     void Update()
     {
+        //info
+        Info.CurrentPosition = transform.position;
+
         Horizontal = Input.GetAxisRaw("Horizontal");
 
         GroundCheck = Physics2D.Raycast(transform.position, Vector2.down, GroundLine, GroundLayer);
@@ -120,7 +125,10 @@ public class Player : MonoBehaviour
 
         // DoubleJump
 
-        DoubleJump();
+        if (Info.AchievedDoubleJump)
+        {
+            DoubleJump();
+        }
 
         // WallSlide
 
@@ -260,7 +268,7 @@ public class Player : MonoBehaviour
         CanDash = false;
         dashing = true;
         float OriginalGravity = rb.gravityScale;
-        rb.AddForce(new Vector2(DashDir * DashPower, 0f), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(DashDir * DashPower, 0f), ForceMode2D.Force);
         rb.gravityScale = 0;
         Tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
@@ -275,26 +283,26 @@ public class Player : MonoBehaviour
     {
         if (Horizontal < 0f)
         {
-            isFacingRight = false;
+            Info.FacingRight = false;
             transform.rotation = Quaternion.Euler(transform.rotation.x, -180, 0);
         }
         if (Horizontal > 0f)
         {
-            isFacingRight = true;
+            Info.FacingRight = true;
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
     public void InstantFlipe()
     {
-        if (isFacingRight)
+        if (Info.FacingRight)
         {
-            isFacingRight = false;
+            Info.FacingRight = false;
             transform.rotation = Quaternion.Euler(0, -180, 0);
         }
-        if (isFacingRight == false)
+        if (Info.FacingRight == false)
         {
-            isFacingRight = true;
+            Info.FacingRight = true;
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
