@@ -51,13 +51,20 @@ public class Player : MonoBehaviour
     public bool isFacingRight;
 
     [Header("Dash")]
-    public float DashPower = 2500;
+    public float DashForce = 2500;
     public float DashCoolDown = 0.4f;
     private float DashDir;
     private bool dashing;
     private bool CanDash = true;
     public float dashTime = 0.2f;
     public TrailRenderer Tr;
+    public float DashLengh = 1.8f;
+    public float DashButtonTimer = 1f;
+    public float MaxDashForce;
+    public float DashForceSpeed;
+    public float DashMovespeedChange;
+    public bool DashEnd = false;
+
 
     public Ladder Ladder;
     public SpiderWeb SpiderWeb;
@@ -94,16 +101,15 @@ public class Player : MonoBehaviour
 
         Flip();
 
-        if (isFacingRight)
+        if (Info.FacingRight)
         {
             DashDir = 1;
         }
-        if (isFacingRight == false)
+        if (Info.FacingRight == false)
         {
             DashDir = -1;
         }
 
-        //falling
     }
     void FixedUpdate()
     {
@@ -268,7 +274,7 @@ public class Player : MonoBehaviour
         CanDash = false;
         dashing = true;
         float OriginalGravity = rb.gravityScale;
-        rb.AddForce(new Vector2(DashDir * DashPower, 0f), ForceMode2D.Force);
+        rb.AddForce(new Vector2(DashDir * DashForce, 0f), (ForceMode2D)ForceMode.Acceleration);
         rb.gravityScale = 0;
         Tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
@@ -292,7 +298,7 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
-
+    
     public void InstantFlipe()
     {
         if (Info.FacingRight)
@@ -328,6 +334,4 @@ public class Player : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * GroundLine);
     }
-
-
 }

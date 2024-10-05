@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f916ca9834ef8eb46a6ffbadbc9fb2a0, type: 3}
   m_Name: New Playerinfo
   m_EditorClassIdentifier: 
-  CurrentPosition: {x: 265.6001, y: 252.65598, z: 0}
+  CurrentPosition: {x: -662.79254, y: 64.93897, z: -1.0576}
   Health: 4
   FacingRight: 1
   AchievedDoubleJump: 1

@@ -16,6 +16,7 @@ public class Player_HealSystem : MonoBehaviour
     private GameObject MedicineSpawner;
     private float CoolDown = 10;
     public PlayerInfo Info;
+    public bool PlayerIsDead;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +50,7 @@ public class Player_HealSystem : MonoBehaviour
 
         if (HealthAmount <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            PlayerIsDead = true;
         }
     }
 
